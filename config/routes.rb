@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  
+
   # List all restaurants
   get 'restaurants', to: 'restaurants#index'
 
@@ -15,6 +15,10 @@ Rails.application.routes.draw do
   get 'restaurants/:id', to: 'restaurants#show', as: 'restaurant'
 
   # Add a new review to a restaurant
-  get 'restaurants/:id/reviews/new', to: 'reviews#new', as: 'new_review'
-  post 'restaurants/:id/reviews', to: 'reviews#create', as: 'restaurant_reviews'
+  # get 'restaurants/:id/reviews/new', to: 'reviews#new', as: 'new_review'
+  # post 'restaurants/:id/reviews', to: 'reviews#create', as: 'restaurant_reviews'
+  resources :restaurants, only: [:show] do
+    # Add a new review to a restaurant
+    resources :reviews, only: [:new, :create]
+  end
 end
